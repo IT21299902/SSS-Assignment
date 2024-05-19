@@ -48,7 +48,7 @@ XAMPP is a free and open-source cross-platform web server solution stack package
             'database' => 'cyber_chat'
         ];
         ?>
-### Set Up Virtual Host
+5. ### Set Up Virtual Host
 Setting up a virtual host will allow you to access your application through a custom domain, such as `cyberchat.local`, instead of `localhost/cyber-chat`.
 
 1. **Modify Apache Configuration**
