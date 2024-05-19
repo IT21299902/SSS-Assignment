@@ -25,7 +25,7 @@ Welcome to the Cyber Chat repository, a secure web-based chat application. This 
 
 XAMPP is a free and open-source cross-platform web server solution stack package that makes it easy to install Apache distribution containing MySQL, PHP, and Perl.
 
-1. **Download and install XAMPP**
+1. ### Download and install XAMPP
         Go to XAMPP's official ("website https://www.apachefriends.org/download.html") and download the version compatible with your operating system.
 
 2. **Start XAMPP**
@@ -77,13 +77,13 @@ Setting up a virtual host will allow you to access your application through a cu
    - Save the changes.
 
 6. **Access the Application**
-        Open your web browser and navigate to http://localhost/cyber-chat.
+        Open your web browser and navigate to http://cyberchat.local.
 
-## online-deployment-with-000webhos
+## online-deployment-with-000webhost
 
 000webhost is a free web hosting service that supports PHP and MySQL, making it suitable for hosting small to medium PHP applications.
 
-    Create an Account on 000webhost
+Create an Account on 000webhost
         Visit 000webhost.com and sign up for a free account.
 
     Upload Files
