@@ -123,8 +123,8 @@ To help you set up and run Cyber Chat, please refer to our detailed video tutori
 
    --This project is a group effort, contributed to by students from SLIIT. Here are the details of our team members:
 
-    [Dissanayake W.P.D.B] - IT21372308 - Description or role if specific
-    [Zakey M.S.M.A]       - IT21299902 - Description or role if specific
+   **[Dissanayake W.P.D.B] - IT21372308** 
+   **[Zakey M.S.M.A]       - IT21299902** 
 
 ### License
 
