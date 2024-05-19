@@ -83,7 +83,7 @@ Setting up a virtual host will allow you to access your application through a cu
 
 000webhost is a free web hosting service that supports PHP and MySQL, making it suitable for hosting small to medium PHP applications.
 
-1. ### Create an Account on 000webhost
+1. **Create an Account on 000webhost**
         Visit 000webhost.com and sign up for a free account.
 
 2. ### Upload Files
