@@ -32,8 +32,8 @@ XAMPP is a free and open-source cross-platform web server solution stack package
         Launch XAMPP Control Panel and start Apache and MySQL.
 
 3. **Database Setup**
-        Open XAMPP's PHPMyAdmin from your browser: http://localhost/phpmyadmin/
-        Create a new database named cyber_chat and import the cyber_chat.sql file provided in the repo.
+        1. **Open XAMPP's PHPMyAdmin from your browser: http://localhost/phpmyadmin/**
+        2. **Create a new database named cyber_chat and import the cyber_chat.sql file provided in the repo.**
 
     Configure PHP Application
         Modify the config/db.php file with the following settings:
