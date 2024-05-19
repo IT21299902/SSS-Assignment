@@ -19,7 +19,7 @@ Welcome to the Cyber Chat repository, a secure web-based chat application. This 
 
 1. **Clone the repository**
    ```bash
-   git clone https://your-repository-url.com
+   git clone https://github.com/IT21299902/SSS-Assignment.git
    cd cyber-chat
 
 ## local-setup-with-xampp
