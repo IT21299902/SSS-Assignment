@@ -32,10 +32,10 @@ XAMPP is a free and open-source cross-platform web server solution stack package
         Launch XAMPP Control Panel and start Apache and MySQL.
 
 3. **Database Setup**
-        1. **Open XAMPP's PHPMyAdmin from your browser: http://localhost/phpmyadmin/**
+        1. **Open XAMPP's PHPMyAdmin from your browser: http://localhost/phpmyadmin/ /n** 
         2. **Create a new database named cyber_chat and import the cyber_chat.sql file provided in the repo.**
 
-    Configure PHP Application
+4. **Configure PHP Application**
         Modify the config/db.php file with the following settings:
 
         php
@@ -48,8 +48,35 @@ XAMPP is a free and open-source cross-platform web server solution stack package
             'database' => 'cyber_chat'
         ];
         ?>
+### Set Up Virtual Host
+Setting up a virtual host will allow you to access your application through a custom domain, such as `cyberchat.local`, instead of `localhost/cyber-chat`.
 
-    Access the Application
+1. **Modify Apache Configuration**
+   - Navigate to your XAMPP control panel folder, then to `apache\conf\extra\` and open `httpd-vhosts.conf`.
+   - Add the following lines at the end of the file:
+     ```apacheconf
+     <VirtualHost *:80>
+         ServerName cyberchat.local
+         DocumentRoot "C:/xampp/htdocs/cyber-chat"
+         <Directory "C:/xampp/htdocs/cyber-chat">
+             Options Indexes FollowSymLinks
+             AllowOverride All
+             Require all granted
+         </Directory>
+     </VirtualHost>
+     ```
+   - Replace `"C:/xampp/htdocs/cyber-chat"` with the actual path to your project if it's located differently.
+
+2. **Modify the Hosts File**
+   - Open Notepad or any text editor as an administrator.
+   - Open the hosts file located at `C:\Windows\System32\drivers\etc\hosts`.
+   - Add the following line to the end of the file:
+     ```
+     127.0.0.1   cyberchat.local
+     ```
+   - Save the changes.
+
+6. **Access the Application**
         Open your web browser and navigate to http://localhost/cyber-chat.
 
 ## online-deployment-with-000webhos
