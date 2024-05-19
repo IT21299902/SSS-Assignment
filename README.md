@@ -83,7 +83,7 @@ Setting up a virtual host will allow you to access your application through a cu
 
 000webhost is a free web hosting service that supports PHP and MySQL, making it suitable for hosting small to medium PHP applications.
 
-1. **Create an Account on 000webhost**
+1. ### Create an Account on 000webhost
         Visit 000webhost.com and sign up for a free account.
 
 2. ### Upload Files
@@ -94,8 +94,18 @@ Setting up a virtual host will allow you to access your application through a cu
 
 4. ### Configure Database Connection
         Update the config/db.php with the database details provided by 000webhost.
+        php
 
-5. ### Finalize Deployment
+        <?php
+        return [
+            'host' => 'localhost',
+            'username' => 'root', // 000webhost username
+            'password' => '',     // 000webhost DB password
+            'database' => 'cyber_chat' // 000webhost DB name
+        ];
+        ?>
+
+6. ### Finalize Deployment
         Visit your project URL as specified by 000webhost to access the Cyber Chat application online.
 
 ## running-the-application
