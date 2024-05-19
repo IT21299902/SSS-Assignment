@@ -21,17 +21,17 @@ Welcome to the Cyber Chat repository, a secure web-based chat application. This 
    git clone https://your-repository-url.com
    cd cyber-chat
 
-       Download and install XAMPP
-        Go to XAMPP's official website and download the version compatible with your operating system.
-
 ## local-setup-with-xampp
 
 XAMPP is a free and open-source cross-platform web server solution stack package that makes it easy to install Apache distribution containing MySQL, PHP, and Perl.
 
-    Start XAMPP
+1. **Download and install XAMPP**
+        Go to XAMPP's official ("website https://www.apachefriends.org/download.html") and download the version compatible with your operating system.
+
+2. **Start XAMPP**
         Launch XAMPP Control Panel and start Apache and MySQL.
 
-    Database Setup
+3. **Database Setup**
         Open XAMPP's PHPMyAdmin from your browser: http://localhost/phpmyadmin/
         Create a new database named cyber_chat and import the cyber_chat.sql file provided in the repo.
 
