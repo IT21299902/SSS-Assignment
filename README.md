@@ -12,7 +12,6 @@ Welcome to the Cyber Chat repository, a secure web-based chat application. This 
 - [Running the Application](#running-the-application)
 - [Testing](#testing)
 - [Contributors](#contributors)
-- [Video Tutorial](#video-tutorial)
 - [License](#license)
 
 ## Installation
@@ -112,12 +111,6 @@ Setting up a virtual host will allow you to access your application through a cu
 ## running-the-application
    --Refer to the Local Setup with XAMPP and Online Deployment with 000webhost sections for details on running the application locally and online.
 
-## Video Tutorial
-
-To help you set up and run Cyber Chat, please refer to our detailed video tutorials available at:
-
-   1. ### Setup and Installation: [YouTube Link Here]
-   2. ### Feature Demonstration: [YouTube Link Here]
 
 ## Contributors
 
