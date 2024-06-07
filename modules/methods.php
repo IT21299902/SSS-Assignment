@@ -64,7 +64,7 @@ class RSA{
   function find_d($e, $z) {
     for($d=1;;$d++){
       if(($d * $e % $z) == 1){
-        return $d; // Mod Inverse - Better
+        return $d; 
       }
     }
   }
@@ -74,7 +74,7 @@ class RSA{
     $newChar = "";
     $everySeparate = "";
     for($i = 0; $i < strlen($m); $i++){
-      $newChar = bcpowmod(ord($m[$i]), $e, $n);     // Log may works
+      $newChar = bcpowmod(ord($m[$i]), $e, $n);     
       $everySeparate.=strlen($newChar);
       $c.=$newChar;
     }
@@ -83,10 +83,10 @@ class RSA{
 
   function decrypt($c, $d, $n, $everySeparate){
     $m = "";
-    // echo strlen($c)."  ".$everySeparate[0]."  ".$everySeparate[1]. "  ";
+
     for($i = 0, $ct = 0; $i < strlen($c); $i+=$everySeparate[$ct], $ct++){
       $cc = $this->getTheCurrentChar($c, $i, $everySeparate[$ct]);
-      // echo $cc. "  ";
+
       $m.=chr(bcpowmod($cc, $d, $n));
     }
     return $m;
@@ -102,8 +102,7 @@ class RSA{
 }
 
 class AES{
-      //128 bits, key = 128 (least security) or 192 or 256 (highest security) bits [SOLVED] ==> str_split
-      //Text XOR Key
+
     
       function keyGen($key, int $rounds)
       {
@@ -120,16 +119,14 @@ class AES{
           $w0 = $w[0];
           $w1 = $w[1];
 
-          //echo ("<br> Key0 is: ".bindec($key)." >> [$key]<br> w0= ".bindec($w[0])." >>  [$w[0]]<br> w1= ".bindec($w[1])." >>  [$w[1]] <br>");
-          //array_push($allkeys, $w0.$w1); 2 4 6 8 9 10 12 14 16 18 20
+
 
           for ($i = 0; $i < ($rounds*2); ++$i)
           {
-              //$$this->RotNib = $this->RotNib(bindec($w[0]));
+   
               $$this->RotNib = $this->RotNib(bindec($w1));
               $nibs = str_split($$this->RotNib,4);
-            // echo "<br>nib0= " . $nibs[0];
-              //echo "<br>nib1= " . $nibs[1];
+
               $nibIndex = array_search($nibs[0], $nibble);
               $x = $sboxKey[$nibIndex];
 
@@ -138,11 +135,11 @@ class AES{
               
               $subnib = $x.$y;
 
-              //echo "<br>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> W[$i]= $w0 ^ ".(128)." ^ ".($subnib);
+
               $Round_Key = ($w0) ^ dechex(128 );
               $Round_Key = $Round_Key^($subnib);
 
-              //echo "<br>----------------- ".str_pad(decbin($Round_Key),8,"0",STR_PAD_LEFT);
+
               array_push($keys,$w0.$w1);
 
 
@@ -151,25 +148,25 @@ class AES{
           }
 
           array_push($keys,$w0.$w1);
-        // echo "<br> <br> $ct (8bit-W): ".(implode(", ",$keys)).".";
+
 
           $keysHEX = array();
           for ($i = 0; $i < count($keys); $i+=2)
           {
               array_push($allkeys,$keys[$i]);
               array_push($keysHEX,base_convert(($keys[$i]),2,16));
-              //echo "<br>Round $ct: " . $keys[$i];
+  
               $ct+=1;
           }
 
-          //echo "<br> ----> ".(implode(", ",$allkeys)).".";
+
           return $keysHEX;
       }
 
       
       function RotNib($w)
       {
-          //echo"<br>w= " . base_convert($w,16,2);
+
           $SR = $w >> 4; //shift Right
           $SL = $w << 4; //shift Left
 
@@ -181,7 +178,7 @@ class AES{
 
           $$this->RotNib = $SL | $SR;
 
-        // echo("<br><br> ShiftL = ".$L."<br>ShiftR = ".$R."<br>    $this->RotNib = $$this->RotNib <br>");
+
           return $$this->RotNib;
       }
 
@@ -318,29 +315,6 @@ class AES{
               }
           }
 
-              // echo "<br><br> ".dechex(10)." X ".dechex(10)." = ". dechex(bcmul(hexdec(0x0a) , hexdec(0x0a)));
-              // echo "<br><br>".($xa[0][0]).",  ".hexdec($xa[0][0]);
-              // echo "<br><br>".($M[0][0]).",  ".hexdec($M[0][0]);
-              // echo "<br><br> ".$xa[0][0]." X ".$M[0][0]." = ". dechex(bcmul(hexdec($xa[0][0]) , hexdec($M[0][0])));
-
-              // [0][0] 0
-              // [0][1] 1
-              // [0][2] 2
-              // [0][3] 3
-              // [1][0] 4
-              // [1][1] 5
-              // [1][2] 6
-              // [1][3] 7
-              // [2][0] 8
-              // [2][1] 9
-              // [2][2] 10
-              // [2][3] 11
-              // [3][0] 12
-              // [3][1] 13
-              // [3][2] 14 
-              // [3][3] 15
-
-              //echo "mul2: ".hexdec($xa[0][0])." - ".$mul2[hexdec($xa[0][0])];
 
               $result[0][0] = dechex(hexdec($mul2[hexdec($xa[0][0])]       )^hexdec(        $mul3[hexdec($xa[0][1])]    )^hexdec(   $xa[0][2]       )^hexdec(       $xa[0][3]));
               $result[0][1] = dechex(hexdec($xa[0][0]      )^hexdec(        $mul2[hexdec($xa[0][1])]   )^hexdec(    $mul3[hexdec($xa[0][2])]       )^hexdec(        $xa[0][3]));
@@ -522,13 +496,6 @@ class AES{
                           array(0x17, 	0x2b ,	0x04 ,	0x7e ,	0xba ,	0x77, 	0xd6, 	0x26 ,	0xe1 ,	0x69 ,	0x14 ,	0x63 ,	0x55 ,	0x21 ,	0x0c ,	0x7d) );
               //hard-coded S-box
           
-          // for($i = 0 ; $i<count($arr) ; $i++)
-          // {
-          //     for($j = 0 ; $j<count($arr[$i]) ; $j++)
-          //     {
-          //         $arr[$i][$j] = dechex($arr[$i][$j]);
-          //     }
-          // }
 
           for($i = 0; $i<count($arr) ; $i++)
           {
@@ -548,17 +515,11 @@ class AES{
               for($j=0 ; $j < $col ; $j++)
               {
                   $compare = $arr[$i][$j];
-                  //echo "<br> mat[$i][$j] = ".$compare;
+
                   
                   $result[$i][$j] = dechex( $sbox[hexdec($compare[0])][hexdec($compare[1])] );
               }
           }
-
-          // for($i = 0 ; $i<count($result) ; $i++)
-          // {
-          //     echo "<br>S-BOX[$i] = ".(implode(" ",$result[$i]));
-          // }
-
 
           
           return $result;
@@ -585,13 +546,6 @@ class AES{
                           array(0x8c ,0xa1 ,0x89 ,0x0d ,0xbf ,0xe6 ,0x42 ,0x68 ,0x41 ,0x99 ,0x2d ,0x0f ,0xb0 ,0x54 ,0xbb ,0x16) );
               //hard-coded S-box
           
-          // for($i = 0 ; $i<count($sbox) ; $i++)
-          // {
-          //     for($j = 0 ; $j<count($sbox[$i]) ; $j++)
-          //     {
-          //         $sbox[$i][$j] = dechex($sbox[$i][$j]);
-          //     }
-          // }
 
           for($i = 0; $i<count($arr) ; $i++)
           {
@@ -616,11 +570,6 @@ class AES{
                   $result[$i][$j] = dechex( $sbox[hexdec($compare[0])][hexdec($compare[1])] );
               }
           }
-
-          // for($i = 0 ; $i<count($result) ; $i++)
-          // {
-          //     echo "<br>S-BOX[$i] = ".(implode(" ",$result[$i]));
-          // }
 
 
           
@@ -648,22 +597,11 @@ class AES{
                           array(0x8c ,0xa1 ,0x89 ,0x0d ,0xbf ,0xe6 ,0x42 ,0x68 ,0x41 ,0x99 ,0x2d ,0x0f ,0xb0 ,0x54 ,0xbb ,0x16) );
               //hard-coded S-box
 
-              // 14 2e 4b 43
-          
-          // for($i = 0 ; $i<count($sbox) ; $i++)
-          // {
-          //     for($j = 0 ; $j<count($sbox[$i]) ; $j++)
-          //     {
-          //         $sbox[$i][$j] = dechex($sbox[$i][$j]);
-          //     }
-          // }
 
           $result = array();
 
           for ($i=0 ; $i < count($arr) ; $i++)
           {   
-              //echo "<br>". hexdec($arr[$i][0]).",   ".hexdec($arr[$i][1]);
-              //echo ",  s-box= ". dechex($sbox[hexdec($arr[$i][0])][hexdec($arr[$i][1])]);
               array_push( $result, dechex($sbox[hexdec($arr[$i][0])][hexdec($arr[$i][1])]) );
           }
           return $result;
@@ -725,7 +663,6 @@ class AES{
           $wtemp=array();
           for($i = 0; $i<count($a) ; $i++)
           {
-              //echo "<br>>>>>>>>>>>>>>>>>>>>>>>>>>XOR $a[$i] and $b[$i]";
               $b[$i] = str_pad($b[$i],2,'0',STR_PAD_LEFT);
               $a[$i] = str_pad($a[$i],2,'0',STR_PAD_LEFT);
           }
@@ -745,7 +682,6 @@ class AES{
                   
                   $b[$i][$j] = str_pad($b[$i][$j],2,'0',STR_PAD_LEFT);
                   $a[$i][$j] = str_pad($a[$i][$j],2,'0',STR_PAD_LEFT);
-                  //echo "<br>>>>>>>>>>>>>>>>>>>>>>>>>>XOR ". $a[$i][$j] ." and ". $b[$i][$j];
               }
           }
 
@@ -761,7 +697,6 @@ class AES{
               {
 
                   $res = (hexdec($a[$i][$c]) ^ hexdec($b[$i][$c]));
-                  // echo "<br>values: a[$i][$c] , b[$i][$c] = " . $a[$i][$c] . " ^ ". $b[$i][$c] . "= " . $res;
                   $wtemp[$i][$c] = dechex($res);
                   
               }
@@ -773,7 +708,6 @@ class AES{
               for($j = 0; $j<count($wtemp[$i]) ; $j++)
               {
                   $wtemp[$i][$j] = str_pad($wtemp[$i][$j],2,'0',STR_PAD_LEFT);
-                  //echo "<br>>>>>>>>>>>>>>>>>>>>>>>>>>XOR ". $a[$i][$j] ." and ". $b[$i][$j];
               }
           }
 
@@ -783,24 +717,18 @@ class AES{
 
       function Adding($a,$b)
       {    
-          //echo "<br>count: ". count($b).", ".$b[0];
 
           for($j = 0; $j<count($b) ; $j++)
           {
               $b[$j] = str_pad($b[$j],2,'0',STR_PAD_LEFT);
           }
-
-          // echo "<br>----------= " . implode(" ",$b);
           
           $res = $a;
           
-          // echo "<br>bant= " . implode(" ",$roundb);
-
           for($i = 0; $i<count($a) ; $i++)
           {
               $s =($b[$i]);
               $res[$i] = dechex(hexdec($a[$i]) ^ hexdec($s));
-              // echo "<br>$a[$i] ^ $s = $res[$i]";
           }
 
           return $res;
@@ -820,10 +748,6 @@ class AES{
                     array(0x1b,0x00,0x00,0x00),
                     array(0x36,0x00,0x00,0x00));
 
-          // for($i = 0 ; $i<count($w) ; $i++)
-          // {
-          //     echo "<br>key[$i]= " . implode(" ",$w[$i]);
-          // }
 
           for($i = 0 ; $i<count($M) ; $i++)
           {
@@ -837,14 +761,6 @@ class AES{
 
           array_push($w[3], array_shift($w[3]));
 
-          //echo "<br>Left shift of w[3]= " . implode(" ",$w[3]);
-          // echo "<br>";
-          
-
-          // for($i = 0 ; $i<count($w) ; $i++)
-          // {
-          //     echo "<br>shift[$i]= " . implode(" ",$w[$i]);
-          // }
 
           $w[3] = $this->SBOX_8bit($w[3]);
           // echo "<br>";
@@ -856,31 +772,10 @@ class AES{
                   $w[$i][$j] = str_pad($w[$i][$j],2,'0',STR_PAD_LEFT);
               }
           }
-          // for($i = 0 ; $i<count($w) ; $i++)
-          // {
-          //     echo "<br>sbox[$i]= " . implode(" ",$w[$i]);
-          // }
 
-          
-          //echo "<br>RCON---------------".$M[$round_count][0]." -> ".dechex($M[$round_count][0]);
 
           $w[3] = $this->Adding($w[3], $M[$round_count]);
-          //echo "<br>";
 
-          // for($i = 0; $i<count($w) ; $i++)
-          // {
-          //     for($j = 0; $j<count($w[$i]) ; $j++)
-          //     {
-          //         $w[$i][$j] = str_pad($w[$i][$j],2,'0',STR_PAD_LEFT);
-          //     }
-          // }
-          
-          // for($i = 0 ; $i<count($w) ; $i++)
-          // {
-          //     echo "<br>XOR[$i]= " . implode(" ",$w[$i]);
-          // }
-
-        // echo "<br>subtracting round constant= " . implode(" ",$w[3]);
 
         for($i = 0; $i<count($w) ; $i++)
         {
@@ -894,19 +789,7 @@ class AES{
           array_push($w, $this->XOR_arr($w[5],$w[2])); //w6
           array_push($w, $this->XOR_arr($w[6],$tmp));  //w7
 
-          // echo "<br>";
-          // echo "<br>";
-          // for($i = 0 ; $i<4 ; $i++)
-          // {
-          //     echo "<br>gen[$i]= " . implode(" ",$w[$i]);
-          // }
-          // echo "<br>";
-          // for($i = 4 ; $i<8 ; $i++)
-          // {
-          //     echo "<br>gen[$i]= " . implode(" ",$w[$i]);
-          // }
   
-
           for($i = 0; $i<count($w) ; $i++)
           {
               for($j = 0; $j<count($w[$i]) ; $j++)
@@ -915,23 +798,17 @@ class AES{
               }
           }
 
-          // for($i = 0 ; $i<count($w) ; $i++)
-          // {
-          //     echo "<br>aw[$i]= " . implode(" ",$w[$i]);
-          // } 
           $roundkey = "";
           for($i = 4 ; $i<count($w) ; $i++)
           {
               $roundkey = $roundkey . implode("",$w[$i]);
           }
 
-          //$roundkey = str_pad($roundkey,128,'0',STR_PAD_LEFT);
           return $roundkey;
       }
 
       function str2Hexmat($string)
       {
-          // echo "<br>string ++++++++++++++++++++++++++++ $string";
 
           $mat = str_split( $string , 8 );
 
@@ -962,17 +839,13 @@ class AES{
 
           $text = bin2hex($text);
       
-          // echo "PlainText >>>>> ".$text; Important
+
           $key = bin2hex($key);
 
-          // echo "<br>Key >>>>> ". $key; Important
 
-
-          
 
           array_push($Rkeys, $key);
-          // echo "<br>--roundkey[0]: ". $Rkeys[0];  Important
-          //echo "<br>+++++++cipher[0]: ". $text;
+
           $textmat = $this->str2Hexmat($text);
 
           $original_keymat = $this->str2Hexmat($key);
@@ -985,7 +858,7 @@ class AES{
 
           $keytmp = $this->str2Hexmat($str);
 
-          // echo "<br>--roundkey[1]: ". $str;   Important
+
 
 
 
@@ -995,16 +868,7 @@ class AES{
           $state_matrix = $this->XOR_mat($textmat,$original_keymat);
           $ci = $this->mat2str($state_matrix);
 
-          // for($i = 0 ; $i<count($w) ; $i++)
-          // {
-          //     echo "<br>aw[$i]= " . implode(" ",$w[$i]);
-          // } 
-
-          //echo "<br>+++++++cipher[1]: ". $ci;
-          // for($i = 0 ; $i<count($state_matrix) ; $i++)
-          // {
-          //     echo "<br>aw[$i]= " . implode(" ",$state_matrix[$i]);
-          // } 
+ 
 
           for($x = 1; $x<10 ; $x++)
           {
@@ -1043,14 +907,13 @@ class AES{
                   array_push($Rkeys, $rounded);
                   $keytmp = $altkey;
                   
-                  // echo "<br>--roundkey[".($x+1)."]: ". $rounded;  Important
+
                   $ci = $this->mat2str($state_matrix);
-                  //echo "<br>+++++++cipher[".($x+1)."]: ". $ci;
                   
                   //break;
           }
         
-          //padding (for safety)
+
           for($i = 0; $i<count($state_matrix) ; $i++)
           {
               for($j = 0; $j<count($state_matrix[$i]) ; $j++)
@@ -1076,7 +939,6 @@ class AES{
               $final = $this->mat2str($state_matrix);
               $keytmp = $this->mat2str($keytmp);
               
-          //echo "<br>------------------- HEXcipher: ". $final;
 
           return $final; 
       }
@@ -1090,10 +952,9 @@ class AES{
 
           $text = bin2hex($cipher);
       
-          // echo "PlainText >>>>> ".$text;  Important
+
           $key = bin2hex($key);
 
-          // echo "<br>Key >>>>> ". $key;  Important
 
           array_push($Rkeys, $key);
 
@@ -1136,29 +997,19 @@ class AES{
           }
 
           $ci = $this->mat2str($state_matrix);
-          //echo "<br>+++++++cipher[10]: ". $ci;
+ 
 
           $ct = 0;
           for($x = 9; $x>=1 ; $x--)
           {   
-              // echo "<br>--roundkey[".($x)."]: ". $Rkeys[$x];  Important
+   
               
 
               $item = $this->str2Hexmat($Rkeys[$x]);
 
-              // for($i = 0 ; $i<count($item) ; $i++)
-              // {
-              //     echo "<br>aw[$i]= " . implode(" ",$item[$i]);
-              // } 
-
-              // for($i = 0 ; $i<count($state_matrix) ; $i++)
-              // {
-              //     echo "<br>s[$i]= " . implode(" ",$state_matrix[$i]);
-              // } 
 
               $state_matrix = $this->XOR_mat($state_matrix,$item);
 
-            
               //mixcolumns:
               $mixcol = $this->Inverse_MixColumns($state_matrix);
               $state_matrix = $mixcol;
@@ -1180,17 +1031,10 @@ class AES{
                   }
 
               $ci = $this->mat2str($state_matrix);
-              //echo "<br>+++++++cipher[".($x)."]: ". $ci;    
 
-              //padding (for safety)
-              
-              // break;
-                //echo "<br>-----------------roundkey[".($x+1)."]: ". $rounded;
                   
           }
-          // echo "<br>--roundkey[".($x)."]: ". $Rkeys[$x];  Important
-        
-              //padding (for safety)
+
               for($i = 0; $i<count($state_matrix) ; $i++)
               {
                   for($j = 0; $j<count($state_matrix[$i]) ; $j++)
@@ -1204,14 +1048,7 @@ class AES{
               $final = $this->mat2str($state_matrix);
 
 
-              // for($i = 0 ; $i<count($state_matrix) ; $i++)
-              // {
-              //     echo "<br>s[$i]= " . implode(" ",$state_matrix[$i]);
-              // } 
-
-
               $ci = $this->mat2str($state_matrix);
-              //echo "<br>+++++++cipher[".($x)."]: ". $ci;    
 
           return $final; 
       }
