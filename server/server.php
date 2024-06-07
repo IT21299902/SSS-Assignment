@@ -119,8 +119,8 @@ function validatePasswordPolicy($password) {
 }
  
 function specialEncryption($password) {
-    // Implement your password encryption here
-    return hash('sha256',$password); // Example using MD5 (not recommended for production use)
+
+    return hash('sha256',$password); 
 }
 
     function generateRandomToken($db)
