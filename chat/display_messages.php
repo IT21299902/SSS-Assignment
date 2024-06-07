@@ -35,7 +35,7 @@
     $sender = $row['sender_id'];
     $receiver = $row['receiver_id'];
     $enc = $row['enc_method'];
-    $message = "-1";//This encryption method is still not fully implemented.";
+    $message = "-1";
     $timestamp = $row['timestamp'];
     $isFile = $row['is_file'];
     $fileName = $row['file_name'];
@@ -65,7 +65,7 @@
       $aesResult = mysqli_query($db, $query);
       $aesRow = mysqli_fetch_assoc($aesResult);
 
-      $cipherAesBin = hex2bin($aesRow['cipher']);  // As MySQL can not store it
+      $cipherAesBin = hex2bin($aesRow['cipher']);  
 
       $ciphertext = str_split($cipherAesBin,16);
       $finalPlainText = "";
@@ -78,7 +78,7 @@
           $finalPlainText .= $removeThePadKeyword;
       }
       $message = $finalPlainText;
-      // echo $message;
+
     }
     else if($enc == 2){
       $RSA = new RSA();
@@ -109,8 +109,8 @@
     $node[] = $receiver;
     $node[] = $enc;
     $node[] = $message;
-    $node[] = ''; // Placeholder for timestamp
-    $node[] = ''; // Placeholder for time elapsed
+    $node[] = ''; 
+    $node[] = ''; 
 
 
     $node[] = $isFile;
@@ -159,32 +159,32 @@
   }
   
 
-  function time_elapsed_string($datetime = "", $full = false) {
-    $now = new DateTime;
-    $ago = new DateTime($datetime);
-    $diff = $now->diff($ago);
+//   function time_elapsed_string($datetime = "", $full = false) {
+//     $now = new DateTime;
+//     $ago = new DateTime($datetime);
+//     $diff = $now->diff($ago);
 
-    $diff->w = floor($diff->d / 7);
-    $diff->d -= $diff->w * 7;
+//     $diff->w = floor($diff->d / 7);
+//     $diff->d -= $diff->w * 7;
 
-    $string = array(
-        'y' => 'year',
-        'm' => 'month',
-        'w' => 'week',
-        'd' => 'day',
-        'h' => 'hour',
-        'i' => 'minute',
-        's' => 'second',
-    );
-    foreach ($string as $k => &$v) {
-        if ($diff->$k) {
-            $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
-        } else {
-            unset($string[$k]);
-        }
-    }
+//     $string = array(
+//         'y' => 'year',
+//         'm' => 'month',
+//         'w' => 'week',
+//         'd' => 'day',
+//         'h' => 'hour',
+//         'i' => 'minute',
+//         's' => 'second',
+//     );
+//     foreach ($string as $k => &$v) {
+//         if ($diff->$k) {
+//             $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+//         } else {
+//             unset($string[$k]);
+//         }
+//     }
 
-    if (!$full) $string = array_slice($string, 0, 1);
-    return $string ? implode(', ', $string) . ' ago' : 'just now';
-  }
+//     if (!$full) $string = array_slice($string, 0, 1);
+//     return $string ? implode(', ', $string) . ' ago' : 'just now';
+//   }
 ?>
