@@ -33,7 +33,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title fw-light" id="chatModalLabel">Chat with </h5>
-            <!-- <div class="animate__animated animate__fadeInDown animate__faster" id="last-seen" style="font-style:italic; font-size:10px; font-weight:300; color:#666; float:right; margin-top:5px; margin-left:5px;">Status</div> -->
+            
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="mb-3">
